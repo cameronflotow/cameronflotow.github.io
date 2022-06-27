@@ -14,99 +14,82 @@
 
     <script type="text/processing">
 
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-ArrayList<Node> Network = new ArrayList<Node>();
-int NetworkSize = 1+floor(random(100));
-int counter = 0;
+   
+    ArrayList<Node> Network = new ArrayList<Node>();
+    int NetworkSize = 1+floor(random(100));
+    int counter = 0;
 
-void setup(){
-  size(600,280);
-  replay();
-}
-
-void draw(){
-  counter++;
-  if(counter>25){
-    counter = 0; replay();
-  }
-}
-
-
-void replay(){
-  println("--------------------------------------------------------------------------------");
-  Network.clear();
-  background(0); scale(.5);
-  for(int i = 0; i < NetworkSize; i++){
-    Node N = new Node(random(width*2),random(height*2),floor(random(50)));
-    Network.add(N);
-  }
-  stroke(255); background(0);
-  for(int i = 0; i < Network.size(); i++){
-    Network.get(i).buildConnections();
-  }
-  for(int i = 0; i < Network.size(); i++){
-    Network.get(i).drawn();
-  }
-}
-
-
-class Node{
-  float x; float y;
-  int numConns;
-  int[] conns;
-  ArrayList<Float> cX = new ArrayList<Float>();
-  ArrayList<Float> cY = new ArrayList<Float>();
- 
-  public Node(float x, float y, int numConns){
-    this.x=x; this.y=y; this.numConns=numConns;
-    conns = new int[this.numConns];
-    for(int i = 0; i < conns.length; i++){
-      conns[i] = floor(random(NetworkSize));
-      println(conns.length);
+    void setup(){
+      size(600,280);
+      replay();
     }
-  }
-  
-  
-  void buildConnections(){
-    for(int i = 0; i < conns.length; i++){
-      cX.add(Network.get(conns[i]).x);
-      cY.add(Network.get(conns[i]).y);
+
+    void draw(){
+      counter++;
+      if(counter>25){
+        counter = 0; replay();
+      }
     }
-  }
-  
-  void drawn(){
-    stroke(random(180,255),random(180,255),random(180,255),200);
-    strokeWeight(1+2*conns.length);
-    point(x,y);
-    stroke(255);
-    strokeWeight(.5);
-    for(int i = 0; i < conns.length; i++){
-      line(x,y,Network.get(conns[i]).x,Network.get(conns[i]).y);
+
+
+    void replay(){
+      println("--------------------------------------------------------------------------------");
+      Network.clear();
+      background(0); scale(.5);
+      for(int i = 0; i < NetworkSize; i++){
+        Node N = new Node(random(width*2),random(height*2),floor(random(50)));
+        Network.add(N);
+      }
+      stroke(255); background(0);
+      for(int i = 0; i < Network.size(); i++){
+        Network.get(i).buildConnections();
+      }
+      for(int i = 0; i < Network.size(); i++){
+        Network.get(i).drawn();
+      }
     }
-  }
-  
-}
-      
-      
-      
-      
-      
-      
-      
-      
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    class Node{
+      float x; float y;
+      int numConns;
+      int[] conns;
+      ArrayList<Float> cX = new ArrayList<Float>();
+      ArrayList<Float> cY = new ArrayList<Float>();
+
+      public Node(float x, float y, int numConns){
+        this.x=x; this.y=y; this.numConns=numConns;
+        conns = new int[this.numConns];
+        for(int i = 0; i < conns.length; i++){
+          conns[i] = floor(random(NetworkSize));
+          println(conns.length);
+        }
+      }
+
+
+      void buildConnections(){
+        for(int i = 0; i < conns.length; i++){
+          cX.add(Network.get(conns[i]).x);
+          cY.add(Network.get(conns[i]).y);
+        }
+      }
+
+      void drawn(){
+        stroke(random(180,255),random(180,255),random(180,255),200);
+        strokeWeight(1+2*conns.length);
+        point(x,y);
+        stroke(255);
+        strokeWeight(.5);
+        for(int i = 0; i < conns.length; i++){
+          line(x,y,Network.get(conns[i]).x,Network.get(conns[i]).y);
+        }
+      }
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
       
       
 
