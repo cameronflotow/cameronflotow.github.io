@@ -14,61 +14,90 @@
     
     <script type="text/processing">
     
-      Ball[] ball;
-
-      void setup(){
-        size(700, 600);
-        frameRate(100);
-        ball = new Ball[100];
-        for(int i = 0; i < ball.length; i++){
-            ball[i] = new Ball();
-        }
-      }
+      ArrayList<Particle> P = new ArrayList<Particle>();
+ArrayList<Particle> Ptemp = new ArrayList<Particle>();
+int particleSize = 50;
+int particleCount = 350;
+int counter = 0;
+int densityCap = 100;
 
 
-
-      void draw(){
-          background(155,0,0);
-            for(int i = 0; i < ball.length; i++){
-                ball[i].display();
-            }
-
-      }
-      class Ball{
-
-          float x;
-          float y;
-          float Vx;
-          float Vy;
-          float r,g,b,o;
-          float d;
-
-          Ball(){
-              x = random(width);
-              y = random(height);
-              Vx = random(-5,5);
-              Vy = random(-5,5);
-              r = random(255);
-              g = random(255);
-              b = random(255);
-              o = random(255);
-              d = random(30) + 15;
-          }
-
-          void display(){
-              fill(r,g,b,o);
-              ellipse(x,y,d,d);
-              x += Vx;
-              y += Vy;
-              if(x > width || x < 0){
-                  Vx *= -1;
-              }
-              if(y > height || y < 0){
-                  Vy *= -1;
-              }
-          }
+void setup(){
+  size(1000,800);
+  noStroke();
+  for(int i = 0; i < particleCount; i++){
+    Particle p = new Particle(); P.add(p);
+  }
+  
+  
+  for(int i = 0; i < width; i += particleSize){
+    for(int j = 0; j < height; j += particleSize){
+      P.get(counter).setPos(i,j);
+      counter++;
     }
 
+  }
+}
+
+void draw(){
+
+
+  for(int i = 0; i < P.size(); i++){
+    P.get(floor(random(P.size()))).be();
+  }
+}
+
+class Particle{
+  float ID = random(999999);
+  int other = 0;
+  int x; int y; int type = floor(random(3));
+  float R; float G; float B;
+  
+  public Particle(){ 
+    if(type==0){R=255; G = 0; B = 0;}
+    else if(type==1){R=0; G = 255; B = 0;}
+    else if(type==2){R=0; G = 0; B = 255;}
+  }
+  
+  void setPos(int x, int y){
+    this.x=x; this.y=y;
+  }
+  
+  //0 beats 1, 1 beats 2, 2 beats 0
+  void be(){
+    if(type==0){R = map(other,0,densityCap,255,0); G = 0; B = map(other,0,densityCap,0,255);}
+    else if(type==1){R = map(other,0,densityCap,0,255); G = map(other,0,densityCap,255,0); B = 0;}
+    else if(type==2){R = 0; G = map(other,0,densityCap,0,255); B = map(other,0,densityCap,255,0);}
+    fill(R,G,B);
+    rect(x,y,particleSize,particleSize);
+   for(int i = 0; i < P.size(); i++){
+        
+      if(type == 0){
+          if(other>densityCap){type = 2; other = 0;}                                                                                                  //0 beats 1,
+          if(P.get(i).type == 1 && P.get(i).x==x-particleSize && P.get(i).y==y && P.get(i).ID!=ID){P.get(i).other++;}                 //on left
+            if(P.get(i).type == 1 && P.get(i).x==x+particleSize && P.get(i).y==y && P.get(i).ID!=ID){P.get(i).other++;}           //on right
+            if(P.get(i).type == 1 && P.get(i).x==x && P.get(i).y==y-particleSize && P.get(i).ID!=ID){P.get(i).other++;}           //on top
+            if(P.get(i).type == 1 && P.get(i).x==x && P.get(i).y==y+particleSize && P.get(i).ID!=ID){P.get(i).other++;}           //on top
+       
+      }else if(type == 1){
+        if(other>densityCap){type = 0; other = 0;}                                                                                                  //0 beats 1,
+        if(P.get(i).type == 2 && P.get(i).x==x-particleSize && P.get(i).y==y && P.get(i).ID!=ID){P.get(i).other++;}                  //on left
+            if(P.get(i).type == 2 && P.get(i).x==x+particleSize && P.get(i).y==y && P.get(i).ID!=ID){P.get(i).other++;}           //on right
+            if(P.get(i).type == 2 && P.get(i).x==x && P.get(i).y==y-particleSize && P.get(i).ID!=ID){P.get(i).other++;}           //on top
+            if(P.get(i).type == 2 && P.get(i).x==x && P.get(i).y==y+particleSize && P.get(i).ID!=ID){P.get(i).other++;}           //on top
+       
+      }else if(type == 2){
+          if(other>densityCap){type = 1; other = 0;}                                                                                                  //0 beats 1,
+          if(P.get(i).type == 0 && P.get(i).x==x-particleSize && P.get(i).y==y && P.get(i).ID!=ID){P.get(i).other++;}                //on left
+            if(P.get(i).type == 0 && P.get(i).x==x+particleSize && P.get(i).y==y && P.get(i).ID!=ID){P.get(i).other++;}           //on right
+            if(P.get(i).type == 0 && P.get(i).x==x && P.get(i).y==y-particleSize && P.get(i).ID!=ID){P.get(i).other++;}           //on top
+            if(P.get(i).type == 0 && P.get(i).x==x && P.get(i).y==y+particleSize && P.get(i).ID!=ID){P.get(i).other++;}           //on top
+        }
+        
+      }
+    }
+
+}
 
     </script>
     <canvas id="sketch" style="border: 1px solid black;"></canvas>
