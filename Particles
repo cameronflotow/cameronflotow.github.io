@@ -48,7 +48,7 @@ void setup() {
       A.add(a);
     }
   }
-  frameRate(5000);
+  
 }
 
 
@@ -93,15 +93,7 @@ rotateX(.3);
 }
 
 
-void mouseReleased() {
-  A.clear();
-  for (int i = width/6; i < width-width/6; i+=animalSize) {
-    for (int j = 100; j < height-100; j+=animalSize) {              //random(255), random(255), random(255)
-      Animal a = new Animal(i, j, animalSize, random(100, 200), random(255), random(255), random(255), random(-.001, .001), floor(random(10)));
-      A.add(a);
-    }
-  }
-}
+
 
 class Animal {
 
