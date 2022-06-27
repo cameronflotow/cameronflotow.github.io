@@ -14,40 +14,40 @@
     
     <script type="text/processing">
     
-PImage back;
-import peasy.*;
-PeasyCam camera;
-PShape Sphere;
-String getImage = "";
-int countToActivateCamera = 0;
-int hasBeenActivated = 0;
-int gameState = 0;
-PImage atStories;
-void setup(){
-  size(800,500,P3D);
-  noStroke();
-  noFill();
-  atStories = loadImage("https://static.wixstatic.com/media/a85461_c9469a16ca084ce7969d67f5a5cd805f~mv2.png/v1/fill/w_1080,h_1080,al_c,q_90,enc_auto/output-onlinepngtools%20(3).png");
-  atStories.resize(200,200);
-  imageMode(CENTER);
-  
-  back=loadImage("https://static.wixstatic.com/media/a85461_0ec61bcadfe54e26b2480a52b9f2438a~mv2.jpg/v1/fill/w_7071,h_3536,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/PXL_20220528_185801708_PHOTOSPHERE.jpg");
-  Sphere = createShape(SPHERE, 1500);
-  Sphere.setTexture(back);
-  camera = new PeasyCam(this, 0, 0, 0, 0);
-  camera.setFreeRotationMode();
-}
+    PImage back;
+    import peasy.*;
+    PeasyCam camera;
+    PShape Sphere;
+    String getImage = "";
+    int countToActivateCamera = 0;
+    int hasBeenActivated = 0;
+    int gameState = 0;
+    PImage atStories;
+    void setup(){
+      size(800,500,P3D);
+      noStroke();
+      noFill();
+      atStories = loadImage("https://static.wixstatic.com/media/a85461_c9469a16ca084ce7969d67f5a5cd805f~mv2.png/v1/fill/w_1080,h_1080,al_c,q_90,enc_auto/output-onlinepngtools%20(3).png");
+      atStories.resize(200,200);
+      imageMode(CENTER);
 
-void draw(){
-  background(0);
- 
-  shape(Sphere);
-  image(atStories,width/2,height/2);
-}
+      back=loadImage("https://static.wixstatic.com/media/a85461_0ec61bcadfe54e26b2480a52b9f2438a~mv2.jpg/v1/fill/w_7071,h_3536,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/PXL_20220528_185801708_PHOTOSPHERE.jpg");
+      Sphere = createShape(SPHERE, 1500);
+      Sphere.setTexture(back);
+      camera = new PeasyCam(this, 0, 0, 0, 0);
+      camera.setFreeRotationMode();
+    }
 
-    </script>
-    <canvas id="sketch" style="border: 1px solid black;"></canvas>
-    
-  </body>
-  
-</html>
+    void draw(){
+      background(0);
+
+      shape(Sphere);
+      image(atStories,width/2,height/2);
+    }
+
+        </script>
+        <canvas id="sketch" style="border: 1px solid black;"></canvas>
+
+      </body>
+
+    </html>
