@@ -32,9 +32,9 @@ void setup() {
   noStroke();
   //imageMode(CENTER);
   //size(600,600);
-  //size(300, 300);
+  //size(1400, 900);
   rectMode(CORNER);
-  fullScreen();
+  // fullScreen();
   textAlign(CENTER, CENTER);
   textSize(50);
   //table=load//image("https://static.wixstatic.com/media/e2a4a6_07ab718a0a324b5992f1b7d456388421~mv2.jpeg");
@@ -48,7 +48,7 @@ void setup() {
       A.add(a);
     }
   }
-  frameRate(5000);
+ // frameRate(5000);
 }
 
 
